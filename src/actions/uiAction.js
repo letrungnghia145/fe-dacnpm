@@ -11,14 +11,17 @@ export const hideLoading = () => {
   };
 };
 
-export const fetchDataPostPage = (id) => {
-  return { type: UITypes.FETCH_DATA_POST_PAGE, payload: { id } };
+export const fetchDataPostDetailsPage = (pageFilters) => {
+  return { type: UITypes.FETCH_DATA_POST_DETAILS_PAGE, pageFilters };
+};
+export const fetchDataPostPage = () => {
+  return { type: UITypes.FETCH_DATA_POST_PAGE, payload: {} };
 };
 
-export const fetchDataHomePage = () => {
-  return { type: UITypes.FETCH_DATA_HOME_PAGE, payload: {} };
+export const fetchDataHomePage = (pageFilters) => {
+  return { type: UITypes.FETCH_DATA_HOME_PAGE, pageFilters };
 };
 
-export const fetchDataProfilePage = (id) => {
-  return { type: UITypes.FETCH_DATA_PROFILE_PAGE, payload: { id } };
+export const fetchDataProfilePage = (pageFilters) => {
+  return { type: UITypes.FETCH_DATA_PROFILE_PAGE, pageFilters };
 };

@@ -1,36 +1,30 @@
 import { push } from "connected-react-router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import { AuthActions } from "./actions";
 import "./App.css";
-import { PrivateRoute } from "./common";
+import { Footer, Header, Heading, PostCardItem, PrivateRoute } from "./common";
 import { Confirm } from "./Confirm";
 import { TOKEN_KEY } from "./constants";
 import { routes } from "./routes";
+import { HomePage } from "./pages";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem(TOKEN_KEY);
-    if (isLoggedIn) {
+    if (localStorage.getItem(TOKEN_KEY)) {
       dispatch(AuthActions.authorizeUser());
     }
   });
   return (
     <>
-      <Switch>
+      <Header />
+      <div className="container">
+        <Heading />
         {showRoutes(routes)}
-        <PrivateRoute path="/admin/dashboard" component={() => (
-            <div>
-              <button onClick={() => { dispatch(AuthActions.logout()); }} >LOGOUT</button>
-              <button onClick={() => { dispatch(push("/")); }} >HOME</button>
-            </div>
-          )}
-          roles={["ROLE_ADMIN"]}
-        />
-        <Route path="/confirm" component={Confirm} />
-      </Switch>
+      </div>
+      <Footer />
     </>
   );
 }
@@ -45,5 +39,16 @@ const showRoutes = (routes) => {
     } else {
       return <Route key={index} {...route} />;
     }
+  });
+};
+
+const showLinks = (routes) => {
+  return routes.map((route, index) => {
+    return (
+      <div key={index}>
+        <Link to={route.path}>{route.path}</Link>
+        <br />
+      </div>
+    );
   });
 };

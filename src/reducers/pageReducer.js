@@ -2,13 +2,14 @@ import { PostTypes, TagTypes, UITypes, UserTypes } from "../constants";
 
 const initialState = {
   // isLoading: false,
-  data: {},
+  // data: {},
 };
 
 const page = (state = initialState, action) => {
-  let data = null;
   switch (action.type) {
     case UITypes.FETCH_DATA_HOME_PAGE:
+      return {};
+    case UITypes.FETCH_DATA_POST_DETAILS_PAGE:
       return {};
     case UITypes.FETCH_DATA_POST_PAGE:
       return {};
@@ -19,23 +20,17 @@ const page = (state = initialState, action) => {
     case UITypes.HIDE_LOADING:
       return { ...state, isLoading: false };
     case PostTypes.GET_POST_DETAILS_SUCCESS:
-      data = { ...state.data, post: action.payload.post };
-      return { ...state, data };
+      return {...state, post: action.payload.post};
     case PostTypes.GET_ALL_POSTS_SUCCESS:
-      data = { ...state.data, posts: action.payload.posts };
-      return { ...state, data };
+      return { ...state, posts: action.payload.posts };
     case PostTypes.GET_POST_COMMENTS_SUCCESS:
-      data = { ...state.data, comments: action.payload.comments };
-      return { ...state, data };
+      return { ...state, comments: action.payload.comments };
     case TagTypes.GET_ALL_TAGS_SUCCESS:
-      data = { ...state.data, tags: action.payload.tags };
-      return { ...state, data };
+      return { ...state, tags: action.payload.tags };
     case UserTypes.GET_USER_POSTED_POSTS_SUCCESS:
-      data = { ...state.data, postedPosts: action.payload.postedPosts };
-      return { ...state, data };
+      return { ...state, postedPosts: action.payload.postedPosts };
     case UserTypes.GET_USER_SHARED_POSTS_SUCCESS:
-      data = { ...state.data, sharedPosts: action.payload.sharedPosts };
-      return { ...state, data };
+      return { ...state, sharedPosts: action.payload.sharedPosts };
     // case PostTypes.GET_POST_COMMENTS_SUCCESS:
     //   data = { ...state.data, comments: action.payload.comments };
     //   return { ...state, data };

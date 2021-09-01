@@ -40,3 +40,15 @@ export const confirmRegisterUser = (code) => {
 export const resendConfirmCode = (user) => {
   return { type: AuthTypes.RESEND_CONFIRM_CODE, payload: { user } };
 };
+
+export const checkIfNotRegistered = (email) => {
+  return { type: AuthTypes.CHECK_IF_NOT_REGISTERED, payload: { email } };
+};
+
+export const checkSuccess = () => {
+  return { type: AuthTypes.CHECK_SUCCESS, payload: {} };
+};
+
+export const checkFailed = () => {
+  return { type: AuthTypes.CHECK_FAILED, payload: {} };
+};

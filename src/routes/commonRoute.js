@@ -1,30 +1,36 @@
-import { HomePage, LoginPage, PostDetailsPage, RegisterPage } from "../pages";
+import { HomePage, LoginPage, PostDetailsPage, RegisterPage, UserInfoPage } from "../pages";
 
 const prefix = "";
 
 export const commonRoutes = [
   {
-    path: `${prefix}/`,
+    path: `/`,
     exact: true,
     roles: [],
     component: (props) => <HomePage {...props} />,
   },
   {
-    path: `${prefix}/login`,
+    path: `/login`,
     exact: true,
     roles: [],
     component: (props) => <LoginPage {...props} />,
   },
   {
-    path: `${prefix}/register`,
+    path: `/register`,
     exact: true,
     roles: [],
     component: (props) => <RegisterPage {...props} />,
   },
   {
-    path: `${prefix}/post/1`,
+    path: `/post/:id`,
     exact: true,
     roles: [],
     component: (props) => <PostDetailsPage {...props} />,
+  },
+  {
+    path: `/userInfo/:id`,
+    exact: true,
+    roles: [],
+    component: (props) => <UserInfoPage {...props} />,
   },
 ];

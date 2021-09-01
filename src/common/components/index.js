@@ -3,3 +3,7 @@ export * from "./Footer";
 export * from "./PrivateRoute";
 export * from "./Forbidden";
 export * from "./PageLoading";
+export * from "./Heading";
+export * from "./TagsBoard";
+export * from "./Pagination";
+export * from "./PostUtilItem";

@@ -21,9 +21,14 @@ const confirmRegister = (token, code) => {
   return client.post("/register/confirm", { token, code })
 }
 
+const checkIfNotRegistered = (email) => {
+  return client.post("/check", email);
+
+}
 export const authService = {
   authenticate: (email, password) => authenticate(email, password),
   authorize: () => authorize(),
   register: (user) => register(user),
   confirmRegister: (token, code) => confirmRegister(token, code),
+  checkIfNotRegistered: (email) => checkIfNotRegistered(email),
 };

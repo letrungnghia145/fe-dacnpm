@@ -1,16 +1,13 @@
-import { all, call, put, take, takeEvery } from "redux-saga/effects";
-import {
-  PostActions,
-  TagActions,
-  UIActions, UserActions
-} from "../actions";
+import { all, call, delay, put, take, takeEvery } from "redux-saga/effects";
+import { PostActions, TagActions, UIActions, UserActions } from "../actions";
 import { PostTypes, TagTypes, UITypes, UserTypes } from "../constants";
 
 export function* uiSaga() {
   yield all([
-    watchFetchDataPostPage(),
+    watchFetchDataPostDetailsPage(),
     watchFetchDataHomePage(),
     watchFetchDataProfilePage(),
+    watchFetchDataPostPage(),
   ]);
 }
 
@@ -30,15 +27,25 @@ function* watchFetchDataPostPage() {
   yield takeEvery(UITypes.FETCH_DATA_POST_PAGE, fetchDataPostPage);
 }
 
+function* watchFetchDataPostDetailsPage() {
+  yield takeEvery(
+    UITypes.FETCH_DATA_POST_DETAILS_PAGE,
+    fetchDataPostDetailsPage
+  );
+}
+
 function* watchFetchDataHomePage() {
   yield takeEvery(UITypes.FETCH_DATA_HOME_PAGE, fetchDataHomePage);
 }
 
 function* fetchDataHomePage(action) {
+  const { postsFilters, tagsFilters } = action.pageFilters;
+  console.log(postsFilters, tagsFilters);
   yield call(showLoading);
+  yield delay(500);
   yield all([
-    put(PostActions.getAllPosts({})),
-    put(TagActions.getAllTags({})),
+    put(PostActions.getAllPosts(postsFilters)),
+    put(TagActions.getAllTags(tagsFilters)),
     //sth gone here
   ]);
   yield all([
@@ -48,34 +55,49 @@ function* fetchDataHomePage(action) {
   yield call(hideLoading);
 }
 
-function* fetchDataPostPage(action) {
-  const { id } = action.payload;
+function* fetchDataPostDetailsPage(action) {
+  const { id, postsFilters, tagsFilters, postCommentsFilters } = action.pageFilters;
   yield call(showLoading);
+  yield delay(500);
   yield all([
     put(PostActions.getPostDetails(id)),
-    put(PostActions.getAllPosts({})),
-    put(PostActions.getPostComments(id, {})),
+    put(PostActions.getAllPosts(postsFilters)),
+    put(PostActions.getPostComments(id, postCommentsFilters)),
+    put(TagActions.getAllTags(tagsFilters)),
     //sth gone here
   ]);
   yield all([
     take(PostTypes.GET_POST_DETAILS_SUCCESS),
     take(PostTypes.GET_ALL_POSTS_SUCCESS),
     take(PostTypes.GET_POST_COMMENTS_SUCCESS),
+    take(TagTypes.GET_ALL_TAGS_SUCCESS),
   ]);
   yield call(hideLoading);
 }
 
 function* fetchDataProfilePage(action) {
-  const { id } = action.payload;
+  const { id, postedPostsFilters, sharedPostsFilters } = action.pageFilters;
   yield call(showLoading);
+  yield delay(500);
   yield all([
-    put(UserActions.getUserSharedPosts(id, {})),
-    put(UserActions.getUserPostedPosts(id, {})),
+    put(UserActions.getUserSharedPosts(id, sharedPostsFilters)),
+    put(UserActions.getUserPostedPosts(id, postedPostsFilters)),
     //sth gone here
   ]);
   yield all([
     take(UserTypes.GET_USER_SHARED_POSTS_SUCCESS),
     take(UserTypes.GET_USER_POSTED_POSTS_SUCCESS),
   ]);
+  yield call(hideLoading);
+}
+
+function* fetchDataPostPage() {
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(TagActions.getAllTags()),
+    //sth gone here
+  ]);
+  yield all([take(TagTypes.GET_ALL_TAGS_SUCCESS)]);
   yield call(hideLoading);
 }

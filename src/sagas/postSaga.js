@@ -36,7 +36,6 @@ function* watchGetAllPosts() {
       const response = yield postService.getPosts(action.payload.filters);
       const { data, status } = response;
       if (status === 200) {
-        yield delay(1000);
         yield put(PostActions.getAllPostsSuccess(data));
       }
     } catch (error) {}

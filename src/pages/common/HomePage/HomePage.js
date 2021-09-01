@@ -1,21 +1,27 @@
-import { push } from "connected-react-router";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { AuthActions, UIActions } from "../../../actions";
+import { UIActions } from "../../../actions";
+import { TagsBoard } from "../../../common";
+import { PostList } from "./PostList";
 
-export const HomePage = () => {
+
+const pageFilters = {
+  postsFilters: {
+    limit: 3,
+  },
+  tagsFilters: {}
+}
+export const HomePage = (props) => {
+  // const [pageFilters, setFilters] = 
+  const ref = useRef({})
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(UIActions.fetchDataHomePage(), []);
-  })
-  return ( 
-    <div>
-      <button onClick={() => dispatch(push("/login"))}>LOGIN</button>
-      <button onClick={() => dispatch(push("/register"))}>REGISTER</button>
-      <button onClick={() => dispatch(push("/admin/page2"))}>ADMINPAGE</button>
-      <button onClick={() => dispatch(push("/user/profile/1"))}>USERPAGE</button>
-      <button onClick={() => dispatch(AuthActions.logout())}>LOGOUT</button>
-      <button onClick={() => dispatch(push("/post/1"))}>POSTDETAILSPAGE</button>
+    dispatch(UIActions.fetchDataHomePage(pageFilters));
+  }, []);
+  return (
+    <div className="row">
+      <PostList />
+      <TagsBoard/>
     </div>
   );
 };

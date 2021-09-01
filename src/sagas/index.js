@@ -1,5 +1,6 @@
 import { all } from "redux-saga/effects";
 import { authSaga } from "./authSaga";
+import { commentSaga } from "./commentSaga";
 import { postSaga } from "./postSaga";
 import { registerSaga } from "./registerSaga";
 import { tagSaga } from "./tagSaga";
@@ -14,5 +15,6 @@ export function* sagas() {
     postSaga(),
     tagSaga(),
     userSaga(),
+    commentSaga()
   ]);
 }

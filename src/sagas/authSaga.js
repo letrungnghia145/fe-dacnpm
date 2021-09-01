@@ -1,6 +1,6 @@
 import { push } from "connected-react-router";
 import { all, put, takeEvery } from "redux-saga/effects";
-import { AuthActions } from "../actions";
+import { AuthActions, UIActions } from "../actions";
 import { authService } from "../apis";
 import { AuthTypes, TOKEN_KEY } from "../constants";
 
@@ -24,6 +24,7 @@ function* logoutUser() {
 }
 
 function* authenticateUser(action) {
+  yield put(UIActions.showLoading());
   const { email, password } = action.payload;
   try {
     const response = yield authService.authenticate(email, password);
@@ -34,8 +35,10 @@ function* authenticateUser(action) {
     }
   } catch (error) {
     localStorage.removeItem(TOKEN_KEY);
-    yield put(push("/login"))
+    yield put(push("/login"));
     yield put(AuthActions.authorizeUserFailure(error));
+  } finally {
+    yield put(UIActions.hideLoading());
   }
 }
 
@@ -50,7 +53,7 @@ function* authorizeUser() {
     }
   } catch (error) {
     localStorage.removeItem(TOKEN_KEY);
-    yield put(push("/login"))
+    yield put(push("/login"));
     yield put(AuthActions.authorizeUserFailure(error));
   }
 }
