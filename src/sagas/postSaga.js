@@ -1,4 +1,4 @@
-import { all, delay, put, take } from "redux-saga/effects";
+import { all, put, take } from "redux-saga/effects";
 import { PostActions } from "../actions";
 import { PostTypes } from "../constants";
 import { postService } from "./../apis";
@@ -67,7 +67,18 @@ function* watchAddPostVoter() {
   yield take(PostTypes.ADD_POST_VOTER);
 }
 function* watchGetPostVoters() {
-  yield take(PostTypes.GET_POST_VOTERS);
+  while (true) {
+    const action = yield take(PostTypes.GET_POST_VOTERS);
+    const { id, filters } = action.payload;
+    console.log(filters);
+    try {
+      const response = yield postService.getVoters(id, filters);
+      const { data, status } = response;
+      if (status === 200) {
+        yield put(PostActions.getPostVotersSuccess(data));
+      }
+    } catch (error) {}
+  }
 }
 function* watchDeleteAllPostsByIds() {
   yield take(PostTypes.DELETE_ALL_POST_BY_IDS);

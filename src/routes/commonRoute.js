@@ -1,28 +1,36 @@
-import { HomePage, LoginPage, PostDetailsPage, RegisterPage, UserInfoPage } from "../pages";
-
-const prefix = "";
+import {
+  CategoryPage,
+  HomePage,
+  LoginPage,
+  PostDetailsPage,
+  RegisterPage,
+  SearchPage,
+  TagPage,
+  UserInfoPage
+} from "../pages";
+import { URL } from "./../constants";
 
 export const commonRoutes = [
   {
-    path: `/`,
+    path: `${URL.HOME_URL}`,
     exact: true,
     roles: [],
     component: (props) => <HomePage {...props} />,
   },
   {
-    path: `/login`,
+    path: `${URL.LOGIN_URL}`,
     exact: true,
     roles: [],
     component: (props) => <LoginPage {...props} />,
   },
   {
-    path: `/register`,
+    path: `${URL.REGISTER_URL}`,
     exact: true,
     roles: [],
     component: (props) => <RegisterPage {...props} />,
   },
   {
-    path: `/post/:id`,
+    path: `${URL.POST_DETAILS_URL}/:id`,
     exact: true,
     roles: [],
     component: (props) => <PostDetailsPage {...props} />,
@@ -32,5 +40,23 @@ export const commonRoutes = [
     exact: true,
     roles: [],
     component: (props) => <UserInfoPage {...props} />,
+  },
+  {
+    path: `${URL.POST_SEARCH}`,
+    exact: true,
+    roles: [],
+    component: (props) => <SearchPage {...props} />,
+  },
+  {
+    path: `${URL.CATEGORY_URL}`,
+    exact: true,
+    roles: [],
+    component: (props) => <CategoryPage {...props} />,
+  },
+  {
+    path: `${URL.TAG_URL}/:id`,
+    exact: true,
+    roles: [],
+    component: (props) => <TagPage {...props} />,
   },
 ];

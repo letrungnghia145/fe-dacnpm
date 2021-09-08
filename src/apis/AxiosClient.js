@@ -1,13 +1,16 @@
 import axios from "axios";
+import { TOKEN_KEY } from "../constants";
 
 const BASE_URL = "http://localhost:8080/api";
 
+const token = localStorage.getItem(TOKEN_KEY);
 export class AxiosClient {
   constructor(configs) {
     this.instance = axios.create({
       baseURL: `${BASE_URL}${configs.endpoint}`,
       headers: {
         "Content-Type": "application/json",
+        "Authorization": token ? "Bearer " + token : ""
       },
       ...configs,
     });

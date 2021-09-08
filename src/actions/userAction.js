@@ -19,20 +19,20 @@ export const getUserInfo = (id) => {
   return { type: UserTypes.GET_USER_INFO, payload: { id } };
 };
 export const getUserInfoSuccess = (user) => {
-  return { type: UserTypes.GET_USER_INFO, payload: { user } };
+  return { type: UserTypes.GET_USER_INFO_SUCCESS, payload: { user } };
 };
 
 export const getAllUsers = (filters) => {
   return { type: UserTypes.GET_ALL_USERS, payload: { filters } };
 };
 export const getAllUsersSuccess = (users) => {
-  return { type: UserTypes.GET_ALL_USERS, payload: { users } };
+  return { type: UserTypes.GET_ALL_USERS_SUCCESS, payload: { users } };
 };
 export const updateUserInfo = (id, user) => {
   return { type: UserTypes.UPDATE_USER_INFO, payload: { id, user } };
 };
 export const updateUserInfoSuccess = (user) => {
-  return { type: UserTypes.UPDATE_USER_INFO, payload: { user } };
+  return { type: UserTypes.UPDATE_USER_INFO_SUCCESS, payload: { user } };
 };
 
 export const getUserPostedPosts = (id, filters) => {

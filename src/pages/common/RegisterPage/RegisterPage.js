@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { AuthActions } from "../../../actions";
-import { authService, postService } from "../../../apis";
 
 export const RegisterPage = (props) => {
   const [user, setUserProps] = useState({

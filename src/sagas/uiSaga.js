@@ -1,6 +1,18 @@
 import { all, call, delay, put, take, takeEvery } from "redux-saga/effects";
-import { PostActions, TagActions, UIActions, UserActions } from "../actions";
-import { PostTypes, TagTypes, UITypes, UserTypes } from "../constants";
+import {
+  CategoryActions,
+  PostActions,
+  TagActions,
+  UIActions,
+  UserActions
+} from "../actions";
+import {
+  CategoryTypes,
+  PostTypes,
+  TagTypes,
+  UITypes,
+  UserTypes
+} from "../constants";
 
 export function* uiSaga() {
   yield all([
@@ -8,6 +20,13 @@ export function* uiSaga() {
     watchFetchDataHomePage(),
     watchFetchDataProfilePage(),
     watchFetchDataPostPage(),
+    watchFetchDataSearchPage(),
+    watchFetchDataTagPage(),
+    watchFetchDataCategoryPage(),
+    watchFetchDataAdminCategoriesPage(),
+    watchFetchDataAdminUsersPage(),
+    watchFetchDataUserInfoPage(),
+    WatchFetchDataAdminPostsPage(),
   ]);
 }
 
@@ -19,12 +38,43 @@ function* hideLoading() {
   yield put(UIActions.hideLoading());
 }
 
+function* watchFetchDataTagPage() {
+  yield takeEvery(UITypes.FETCH_DATA_TAG_PAGE, fetchDataTagPage);
+}
+
+function* WatchFetchDataAdminPostsPage() {
+  yield takeEvery(UITypes.FETCH_DATA_ADMIN_POSTS_PAGE, fetchDataAdminPostsPage);
+}
+
+function* watchFetchDataUserInfoPage() {
+  yield takeEvery(UITypes.FETCH_DATA_USER_INFO_PAGE, fetchDataUserInfoPage);
+}
+
+function* watchFetchDataAdminUsersPage() {
+  yield takeEvery(UITypes.FETCH_DATA_ADMIN_USERS_PAGE, fetchDataAdminUsersPage);
+}
+
+function* watchFetchDataAdminCategoriesPage() {
+  yield takeEvery(
+    UITypes.FETCH_DATA_ADMIN_CATEGORIES_PAGE,
+    fetchDataAdminCategoriesPage
+  );
+}
+
+function* watchFetchDataCategoryPage() {
+  yield takeEvery(UITypes.FETCH_DATA_CATEGORY_PAGE, fetchDataCategoryPage);
+}
+
 function* watchFetchDataProfilePage() {
   yield takeEvery(UITypes.FETCH_DATA_PROFILE_PAGE, fetchDataProfilePage);
 }
 
 function* watchFetchDataPostPage() {
   yield takeEvery(UITypes.FETCH_DATA_POST_PAGE, fetchDataPostPage);
+}
+
+function* watchFetchDataSearchPage() {
+  yield takeEvery(UITypes.FETCH_DATA_SEARCH_PAGE, fetchDataSearchPage);
 }
 
 function* watchFetchDataPostDetailsPage() {
@@ -38,9 +88,32 @@ function* watchFetchDataHomePage() {
   yield takeEvery(UITypes.FETCH_DATA_HOME_PAGE, fetchDataHomePage);
 }
 
+function* fetchDataSearchPage(action) {
+  const { postsFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(PostActions.getAllPosts(postsFilters)),
+    //sth gone here
+  ]);
+  yield all([take(PostTypes.GET_ALL_POSTS_SUCCESS)]);
+  yield call(hideLoading);
+}
+
+function* fetchDataAdminPostsPage(action) {
+  const { postsFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(PostActions.getAllPosts(postsFilters)),
+    //sth gone here
+  ]);
+  yield all([take(PostTypes.GET_ALL_POSTS_SUCCESS)]);
+  yield call(hideLoading);
+}
+
 function* fetchDataHomePage(action) {
   const { postsFilters, tagsFilters } = action.pageFilters;
-  console.log(postsFilters, tagsFilters);
   yield call(showLoading);
   yield delay(500);
   yield all([
@@ -56,7 +129,13 @@ function* fetchDataHomePage(action) {
 }
 
 function* fetchDataPostDetailsPage(action) {
-  const { id, postsFilters, tagsFilters, postCommentsFilters } = action.pageFilters;
+  const {
+    id,
+    postsFilters,
+    tagsFilters,
+    postCommentsFilters,
+    postVotersFilters,
+  } = action.pageFilters;
   yield call(showLoading);
   yield delay(500);
   yield all([
@@ -64,6 +143,7 @@ function* fetchDataPostDetailsPage(action) {
     put(PostActions.getAllPosts(postsFilters)),
     put(PostActions.getPostComments(id, postCommentsFilters)),
     put(TagActions.getAllTags(tagsFilters)),
+    put(PostActions.getPostVoters(id, postVotersFilters)),
     //sth gone here
   ]);
   yield all([
@@ -71,6 +151,7 @@ function* fetchDataPostDetailsPage(action) {
     take(PostTypes.GET_ALL_POSTS_SUCCESS),
     take(PostTypes.GET_POST_COMMENTS_SUCCESS),
     take(TagTypes.GET_ALL_TAGS_SUCCESS),
+    take(PostTypes.GET_POST_VOTERS_SUCCESS),
   ]);
   yield call(hideLoading);
 }
@@ -91,13 +172,81 @@ function* fetchDataProfilePage(action) {
   yield call(hideLoading);
 }
 
-function* fetchDataPostPage() {
+function* fetchDataPostPage(action) {
+  const { categoriesFilters } = action.pageFilters;
   yield call(showLoading);
   yield delay(500);
   yield all([
-    put(TagActions.getAllTags()),
+    // put(TagActions.getAllTags()),
+    put(CategoryActions.getAllCategories(categoriesFilters)),
     //sth gone here
   ]);
-  yield all([take(TagTypes.GET_ALL_TAGS_SUCCESS)]);
+  yield all([take(CategoryTypes.GET_ALL_CATEGORIES_SUCCESS)]);
+  yield call(hideLoading);
+}
+
+function* fetchDataTagPage(action) {
+  const { id, postsFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(TagActions.getTagPosts(id, postsFilters)),
+    //sth gone here
+  ]);
+  yield all([take(TagTypes.GET_TAG_POSTS_SUCCESS)]);
+  yield call(hideLoading);
+}
+
+function* fetchDataCategoryPage(action) {
+  const { categoriesFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(CategoryActions.getAllCategories(categoriesFilters)),
+    //sth gone here
+  ]);
+  yield all([take(CategoryTypes.GET_ALL_CATEGORIES_SUCCESS)]);
+  yield call(hideLoading);
+}
+
+function* fetchDataUserInfoPage(action) {
+  const { id, postedPostsFilters, sharedPostsFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(UserActions.getUserInfo(id)),
+    put(UserActions.getUserSharedPosts(id, sharedPostsFilters)),
+    put(UserActions.getUserPostedPosts(id, postedPostsFilters)),
+    //sth gone here
+  ]);
+  yield all([
+    take(UserTypes.GET_USER_INFO_SUCCESS),
+    take(UserTypes.GET_USER_SHARED_POSTS_SUCCESS),
+    take(UserTypes.GET_USER_POSTED_POSTS_SUCCESS),
+  ]);
+  yield call(hideLoading);
+}
+
+function* fetchDataAdminCategoriesPage(action) {
+  const { categoriesFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(CategoryActions.getAllCategories(categoriesFilters)),
+    //sth gone here
+  ]);
+  yield all([take(CategoryTypes.GET_ALL_CATEGORIES_SUCCESS)]);
+  yield call(hideLoading);
+}
+
+function* fetchDataAdminUsersPage(action) {
+  const { usersFilters } = action.pageFilters;
+  yield call(showLoading);
+  yield delay(500);
+  yield all([
+    put(UserActions.getAllUsers(usersFilters)),
+    //sth gone here
+  ]);
+  yield all([take(UserTypes.GET_ALL_USERS_SUCCESS)]);
   yield call(hideLoading);
 }

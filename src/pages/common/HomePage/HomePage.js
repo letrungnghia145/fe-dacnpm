@@ -1,27 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { UIActions } from "../../../actions";
-import { TagsBoard } from "../../../common";
-import { PostList } from "./PostList";
+import { TagBoard } from "../../../common";
+import { PostsList } from "./PostsList";
 
 
-const pageFilters = {
-  postsFilters: {
-    limit: 3,
-  },
-  tagsFilters: {}
-}
 export const HomePage = (props) => {
-  // const [pageFilters, setFilters] = 
-  const ref = useRef({})
   const dispatch = useDispatch();
+  const pageFilters = {
+    postsFilters: {
+      limit: 3,
+    },
+    tagsFilters: {}
+  }
   useEffect(() => {
     dispatch(UIActions.fetchDataHomePage(pageFilters));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="row">
-      <PostList />
-      <TagsBoard/>
+      <PostsList />
+      <TagBoard/>
     </div>
   );
 };

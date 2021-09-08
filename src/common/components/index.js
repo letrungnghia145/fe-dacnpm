@@ -4,6 +4,7 @@ export * from "./PrivateRoute";
 export * from "./Forbidden";
 export * from "./PageLoading";
 export * from "./Heading";
-export * from "./TagsBoard";
+export * from "./TagBoard";
 export * from "./Pagination";
 export * from "./PostUtilItem";
+export * from "./NotFound";

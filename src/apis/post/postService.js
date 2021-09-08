@@ -32,8 +32,8 @@ const addVoter = (id, voter) => {
   return client.post(`/${id}/voters`, voter);
 };
 
-const getVoters = (id, filter) => {
-  return client.get(`/${id}/voters`, filter);
+const getVoters = (id, filters) => {
+  return client.get(`/${id}/voters`, filters);
 };
 
 const deletePosts = (ids) => {

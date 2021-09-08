@@ -1,24 +1,42 @@
-import { AdminDashBoard } from "./../pages";
+import {
+  AdminDashBoardPage,
+  AdminUserInfoPage,
+  CategoriesPage,
+  PostsPage,
+  UsersPage,
+} from "../pages";
 
 const prefix = "/admin";
 
 export const adminRoutes = [
   {
-    path: `${prefix}`,
+    path: `${prefix}/dashboard`,
     exact: true,
     roles: ["ROLE_ADMIN"],
-    component: (props) => <AdminDashBoard {...props} />,
+    component: (props) => <AdminDashBoardPage {...props} />,
   },
   {
-    path: `${prefix}/page2`,
+    path: `${prefix}/category`,
     exact: false,
     roles: ["ROLE_ADMIN"],
-    component: (props) => <div>Page2</div>,
+    component: (props) => <CategoriesPage {...props} />,
   },
   {
-    path: `${prefix}/page3`,
-    exact: false,
+    path: `${prefix}/users`,
+    exact: true,
     roles: ["ROLE_ADMIN"],
-    component: (props) => <div>Page3</div>,
+    component: (props) => <UsersPage {...props} />,
+  },
+  {
+    path: `${prefix}/users/info/:id`,
+    exact: true,
+    roles: ["ROLE_ADMIN"],
+    component: (props) => <AdminUserInfoPage {...props} />,
+  },
+  {
+    path: `${prefix}/posts`,
+    exact: true,
+    roles: ["ROLE_ADMIN"],
+    component: (props) => <PostsPage {...props} />,
   },
 ];

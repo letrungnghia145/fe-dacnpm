@@ -1,4 +1,4 @@
-import { all, delay, put, take } from "redux-saga/effects";
+import { all, put, take } from "redux-saga/effects";
 import { TagActions } from "../actions";
 import { TagTypes } from "../constants";
 import { tagService } from "./../apis";
@@ -31,7 +31,7 @@ function* watchGetTagPosts() {
     const { id, filters } = action.payload;
     try {
       const response = yield tagService.getPosts(id, filters);
-      yield put(TagActions.getTagPosts(response.data));
+      yield put(TagActions.getTagPostsSuccess(response.data));
     } catch (error) {}
   }
 }

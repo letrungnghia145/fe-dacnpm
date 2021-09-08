@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { AuthActions } from "../../../actions";
+import { URL } from "../../../constants";
 
 export const LoginPage = (props) => {
   const { state } = props.location;
@@ -13,7 +14,7 @@ export const LoginPage = (props) => {
     dispatch(AuthActions.authenticateUser(user));
   };
   if (auth) {
-    const redirect = state ? state.from : auth.role === "ROLE_ADMIN" ? "/admin/dashboard" : "/";
+    const redirect = state ? state.from : auth.role === "ROLE_ADMIN" ? "/admin/dashboard" : URL.HOME_URL;
     return <Redirect to={redirect} />;
   }
   return (

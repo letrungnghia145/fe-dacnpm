@@ -1,8 +1,8 @@
 import { push } from "connected-react-router";
-import { all, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, put, takeEvery } from "redux-saga/effects";
 import Swal from "sweetalert2";
 import { AuthActions } from "../actions";
-import { AuthTypes } from "../constants";
+import { AuthTypes, URL } from "../constants";
 import { Utils } from "../helper";
 import { authService } from "./../apis";
 
@@ -36,7 +36,7 @@ function* watchCheckIfNotRegistered() {
 
 function* CheckIfNotRegistered(action) {
   const response = yield authService.checkIfNotRegistered(action.payload.email);
-  if (response.data == true) {
+  if (response.data === true) {
     yield put(AuthActions.checkSuccess());
   } else {
     yield put(AuthActions.checkFailed());
@@ -56,9 +56,9 @@ function* alertConfirmRegister(action) {
       yield put(AuthActions.registerUserSuccess());
       const confirm = yield Utils.alertSuccess("", "Get to login")
       if (confirm.isConfirmed) {
-        yield put(push("/login"));
+        yield put(push(URL.LOGIN_URL));
       } else {
-        yield put(push("/"));
+        yield put(push(URL.HOME_URL));
       }
     } else if (data.value === false) {
       yield put(AuthActions.registerUser(user));

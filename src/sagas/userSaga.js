@@ -1,7 +1,7 @@
-import { all, delay, put, take } from "redux-saga/effects";
-import { UserTypes } from "../constants";
-import { userService } from "../apis";
+import { all, put, take } from "redux-saga/effects";
 import { UserActions } from "../actions";
+import { userService } from "../apis";
+import { UserTypes } from "../constants";
 
 export function* userSaga() {
   yield all([

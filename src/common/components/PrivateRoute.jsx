@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import { TOKEN_KEY } from "../../constants";
+import { TOKEN_KEY, URL } from "../../constants";
 import { Forbidden } from "./Forbidden";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -20,7 +20,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
           return <Forbidden/>
         }
       } else {
-        return <Redirect to={{pathname: "/login", state:{from: props.location.pathname}}}/>
+        return <Redirect to={{pathname: URL.LOGIN_URL, state:{from: props.location.pathname}}}/>
       }
     }}/>
   );

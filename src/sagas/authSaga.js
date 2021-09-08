@@ -2,7 +2,7 @@ import { push } from "connected-react-router";
 import { all, put, takeEvery } from "redux-saga/effects";
 import { AuthActions, UIActions } from "../actions";
 import { authService } from "../apis";
-import { AuthTypes, TOKEN_KEY } from "../constants";
+import { AuthTypes, TOKEN_KEY, URL } from "../constants";
 
 export function* authSaga() {
   yield all([watchAuthenticateUser(), watchAuthorizeUser(), watchLogoutUser()]);
@@ -20,7 +20,7 @@ function* watchLogoutUser() {
 
 function* logoutUser() {
   localStorage.removeItem(TOKEN_KEY);
-  yield put(push("/login"));
+  yield put(push(URL.LOGIN_URL));
 }
 
 function* authenticateUser(action) {
@@ -35,7 +35,7 @@ function* authenticateUser(action) {
     }
   } catch (error) {
     localStorage.removeItem(TOKEN_KEY);
-    yield put(push("/login"));
+    yield put(push(URL.LOGIN_URL));
     yield put(AuthActions.authorizeUserFailure(error));
   } finally {
     yield put(UIActions.hideLoading());
@@ -53,7 +53,7 @@ function* authorizeUser() {
     }
   } catch (error) {
     localStorage.removeItem(TOKEN_KEY);
-    yield put(push("/login"));
+    yield put(push(URL.LOGIN_URL));
     yield put(AuthActions.authorizeUserFailure(error));
   }
 }

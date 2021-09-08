@@ -11,6 +11,10 @@ export const getPostVoters = (id, filters) => {
   return { type: PostTypes.GET_POST_VOTERS, payload: { id, filters } };
 };
 
+export const getPostVotersSuccess = (voters) => {
+  return { type: PostTypes.GET_POST_VOTERS_SUCCESS, payload: { voters } };
+};
+
 export const getAllPosts = (filters) => {
   return { type: PostTypes.GET_ALL_POSTS, payload: { filters } };
 };

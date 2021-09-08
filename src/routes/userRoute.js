@@ -1,24 +1,23 @@
 import { ProfilePage, PostPage } from "./../pages";
-
-const prefix = "/user";
+import { URL } from "./../constants";
 
 export const userRoutes = [
   {
-    path: `${prefix}/profile`,
+    path: `${URL.USER_PROFILE_URL}`,
     exact: true,
     roles: ["ROLE_USER", "ROLE_ADMIN"],
     component: (props) => <ProfilePage {...props} />,
   },
   {
-    path: `${prefix}/post/create`,
+    path: `${URL.POST_CREATE_URL}`,
     exact: true,
     roles: ["ROLE_USER", "ROLE_ADMIN"],
     component: (props) => <PostPage {...props} />,
   },
   {
-    path: `${prefix}/page3`,
-    exact: false,
-    roles: ["ROLE_USER"],
-    component: (props) => <div>Page3</div>,
+    path: `${URL.POST_EDIT_URL}/:id`,
+    exact: true,
+    roles: ["ROLE_USER", "ROLE_ADMIN"],
+    component: (props) => <PostPage {...props} />,
   },
 ];

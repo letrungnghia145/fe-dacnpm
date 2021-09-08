@@ -16,5 +16,5 @@ export const getTagPosts = (id, filters) => {
   return { type: TagTypes.GET_TAG_POSTS, payload: { id, filters } };
 };
 export const getTagPostsSuccess = (posts) => {
-  return { type: TagTypes.GET_TAG_POSTS, payload: { posts } };
+  return { type: TagTypes.GET_TAG_POSTS_SUCCESS, payload: { posts } };
 };

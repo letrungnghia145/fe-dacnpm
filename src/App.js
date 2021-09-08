@@ -1,14 +1,11 @@
-import { push } from "connected-react-router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { AuthActions } from "./actions";
 import "./App.css";
-import { Footer, Header, Heading, PostCardItem, PrivateRoute } from "./common";
-import { Confirm } from "./Confirm";
-import { TOKEN_KEY } from "./constants";
+import { NotFound, PrivateRoute } from "./common";
+import { TOKEN_KEY, URL } from "./constants";
 import { routes } from "./routes";
-import { HomePage } from "./pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,16 +13,14 @@ function App() {
     if (localStorage.getItem(TOKEN_KEY)) {
       dispatch(AuthActions.authorizeUser());
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <>
-      <Header />
-      <div className="container">
-        <Heading />
-        {showRoutes(routes)}
-      </div>
-      <Footer />
-    </>
+    <Switch>
+      {showRoutes(routes)}
+      <Redirect exact from="/" to={URL.HOME_URL} />
+      <Route path="*" component={NotFound} />
+    </Switch>
   );
 }
 
@@ -39,16 +34,5 @@ const showRoutes = (routes) => {
     } else {
       return <Route key={index} {...route} />;
     }
-  });
-};
-
-const showLinks = (routes) => {
-  return routes.map((route, index) => {
-    return (
-      <div key={index}>
-        <Link to={route.path}>{route.path}</Link>
-        <br />
-      </div>
-    );
   });
 };
