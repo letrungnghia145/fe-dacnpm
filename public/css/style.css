@@ -10351,7 +10351,6 @@ color: #a75d54;
 }
 
 .cus.active{
-  z-index: 2;
   background-color: grey;
   border-color: grey;
 }

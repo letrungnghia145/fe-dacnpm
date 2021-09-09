@@ -9,9 +9,31 @@ import { URL } from "../../../constants";
 
 export const Header = () => {
   const page = useSelector((state) => state.page);
+  const menus = [
+    {
+      path: "/home",
+      exact: true,
+      label: "Home",
+    },
+    {
+      path: "/category",
+      exact: true,
+      label: "Category",
+    },
+    {
+      path: "/event",
+      exact: true,
+      label: "Event",
+    },
+    {
+      path: "/about",
+      exact: true,
+      label: "About",
+    },
+  ];
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0, behavior: "smooth"})
-  }, [])
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <PageLoading isLoading={page ? page.isLoading : false} />
@@ -25,31 +47,16 @@ export const Header = () => {
                 </Link>
                 <div className="collapse navbar-collapse" id="navbarsExample03">
                   <ul className="navbar-nav m-auto">
-                  <NavLink
-                      path="/"
-                      activeOnlyWhenExact={true}
-                      label="CustomLink"
-                    />
-                    <NavLink
-                      path="/abc"
-                      activeOnlyWhenExact={true}
-                      label="use"
-                    />
-                    <NavLink
-                      path="/xyz"
-                      activeOnlyWhenExact={true}
-                      label="foreach"
-                    />
-                    <NavLink
-                      path="/wzt"
-                      activeOnlyWhenExact={true}
-                      label="route"
-                    />
-                    <NavLink
-                      path="/qzt"
-                      activeOnlyWhenExact={true}
-                      label="to render"
-                    />
+                    {menus.map((menu, index) => {
+                      return (
+                        <NavLink
+                          label={menu.label}
+                          path={menu.path}
+                          activeOnlyWhenExact={menu.exact}
+                          key={index}
+                        />
+                      );
+                    })}
                   </ul>
                   <HeaderSearchForm />
                 </div>

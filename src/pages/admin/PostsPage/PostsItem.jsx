@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 export const PostsItem = (props) => {
   const itemRef = useRef();
   const checkBoxRef = useRef();
-  const { selected, setSelected, post } = props;
+  const { selected, setSelected, post, handleDeleteBatch } = props;
   const { content, title, id } = post;
   const [isShowControl, setShowControl] = useState(false);
   const handleAddCheck = (event) => {
@@ -74,13 +74,13 @@ export const PostsItem = (props) => {
               style={{ display: "block", left: -65, padding: 18 }}
             >
               <li>
-                <a href="#">Edit</a>
+                <a href="">Edit</a>
               </li>
               <li>
-                <a href="#">Hide</a>
+                <a href="">Hide</a>
               </li>
               <li>
-                <a href="#">Delete</a>
+                <a href="" onClick={(event) => {event.preventDefault(); handleDeleteBatch([id])}}>Delete</a>
               </li>
             </ul>
           ) : null}

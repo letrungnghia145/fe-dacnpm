@@ -1,14 +1,21 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CategoryActions } from "../../../../actions";
 import { Pagination } from "../../../../common";
 import { AccordionItem } from "./AccordionItem";
 
-export const Accordion = () => {
+export const Accordion = (props) => {
   const categories = useSelector((state) => state.page.categories);
-  const [ currentCategoryShow, setCurrentCategoryShow ] = useState(0);
   const dispatch = useDispatch();
+  const [current, setCurrent] = useState(0);
+  useEffect(()=>{
+    if (current > 0) {
+      const filter = categories.data.filter((category) => category.id === current);
+      props.setSelectedCategory(filter[0]);
+    } else {
+      props.setSelectedCategory(undefined);
+    }
+  },[current]);
   if (categories) {
     const { data, pagination } = categories;
     const onChangePage = (page) => {
@@ -19,9 +26,9 @@ export const Accordion = () => {
       <div id="accordion" className="mb-4" >
           {data.map((category) => {
               const { id } = category;
-              return <AccordionItem category = { category } key = { id }
-              active = { currentCategoryShow === id ? true : false }
-              setCurrentCategoryShow = { setCurrentCategoryShow } />
+              return <AccordionItem 
+              current = { current } setCurrent = { setCurrent }
+              category = { category } key = { id }/>
           })}
       </div>
       <hr />

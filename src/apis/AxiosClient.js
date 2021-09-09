@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TOKEN_KEY } from "../constants";
 
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "https://dacnpm-dolphin-api.herokuapp.com/api";
 
 const token = localStorage.getItem(TOKEN_KEY);
 export class AxiosClient {
@@ -10,7 +10,7 @@ export class AxiosClient {
       baseURL: `${BASE_URL}${configs.endpoint}`,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token ? "Bearer " + token : ""
+        Authorization: token ? "Bearer " + token : "",
       },
       ...configs,
     });
@@ -45,9 +45,11 @@ export class AxiosClient {
       .then(this.handleResponse)
       .catch(this.handleError);
   };
-  delete = async (url, params) => {
+  delete = async (url, body) => {
     return await this.instance
-      .delete(url, { params })
+      .delete(url, {
+        data: body,
+      })
       .then(this.handleResponse)
       .catch(this.handleError);
   };

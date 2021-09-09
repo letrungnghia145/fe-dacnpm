@@ -1,4 +1,4 @@
-import { AuthTypes } from "../constants";
+import { AuthTypes, TOKEN_KEY } from "../constants";
 
 const initialState = null;
 
@@ -9,6 +9,7 @@ const auth = (state = initialState, action) => {
     case AuthTypes.AUTHORIZE_USER_FAILURE:
       return null;
     case AuthTypes.LOGOUT_USER:
+      localStorage.removeItem(TOKEN_KEY);
       return null;
     default:
       break;

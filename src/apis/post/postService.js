@@ -37,7 +37,8 @@ const getVoters = (id, filters) => {
 };
 
 const deletePosts = (ids) => {
-  return client.delete(undefined, ids);
+  const body = { ids }
+  return client.delete(undefined, body);
 };
 
 export const postService = {

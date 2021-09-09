@@ -1,15 +1,15 @@
-import { go, push } from "connected-react-router";
+import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { TOKEN_KEY, URL } from "../../../constants";
+import { URL } from "../../../constants";
+import { AuthActions } from './../../../actions';
 
 export const LoginStatus = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const doLogout = (event) => {
     event.preventDefault();
-    localStorage.removeItem(TOKEN_KEY);
-    dispatch(go(0));
+    dispatch(AuthActions.logout());
   };
   if (auth) {
     return (
@@ -28,6 +28,12 @@ export const LoginStatus = () => {
               <i className="fa fa-pencil mr-2" aria-hidden="true" />
               <Link to={`${URL.POST_CREATE_URL}`}>Create post</Link>
             </li>
+            {auth.role === "ROLE_ADMIN" ? <li>
+              <i className="fa fa-share mr-2" aria-hidden="true" />
+              <Link to={URL.ADMIN_HOME_URL}>
+                Go to admin home
+              </Link>
+            </li> : null}
             <li>
               <i className="fa fa-forward mr-2" aria-hidden="true" />
               <Link to="/logout" onClick={(event) => doLogout(event)}>
