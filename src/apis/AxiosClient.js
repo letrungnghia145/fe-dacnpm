@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TOKEN_KEY } from "../constants";
 
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "https://dacnpm-dolphin-api.herokuapp.com/api";
 
 const token = localStorage.getItem(TOKEN_KEY);
 export class AxiosClient {
