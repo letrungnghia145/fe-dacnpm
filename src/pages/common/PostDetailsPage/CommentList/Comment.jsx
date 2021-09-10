@@ -5,6 +5,7 @@ import { CommentActions } from "../../../../actions";
 import { commentService } from "../../../../apis";
 import { URL } from "../../../../constants";
 import { CommentForm } from "../CommentForm";
+import commentUserImg from './../../../../assets/images/50x50.png';
 
 export const Comment = (props) => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export const Comment = (props) => {
     <div className={`media ${classType}`}>
       <img
         className="d-flex mr-3 rounded-circle"
-        src="http://placehold.it/50x50"
+        src={commentUserImg}
         alt="img"
       />
       <div className="media-body">

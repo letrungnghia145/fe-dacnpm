@@ -1,13 +1,14 @@
 import { go } from "connected-react-router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { CategoryActions } from "../../../actions";
 import { categoryService } from "../../../apis/category";
 import { Utils } from "../../../helper";
 
 export const FormEdit = (props) => {
   const [newCategory, setNewCategoryProps] = useState({ ...props.category });
   const { name, tags } = newCategory;
-  const [tag, setTag] = useState({
+  const [tag, setTagProps] = useState({
     name: "",
   });
 
@@ -22,6 +23,7 @@ export const FormEdit = (props) => {
     const temp = [...newCategory.tags];
     if (option === options.ADD_TAG) {
       temp.push(tag);
+      setTagProps({ name: "" });
     } else {
       temp.splice(temp.indexOf(tag), 1);
     }
@@ -33,7 +35,11 @@ export const FormEdit = (props) => {
     categoryService.updateCategory(newCategory).then((response) => {
       if (response.status === 200)
         Utils.alertSuccess("Updated category successfully").then((result) => {
-          if (result.isConfirmed) dispatch(go(0));
+          dispatch(CategoryActions.getAllCategories({ limit: 5, page: 1 }));
+          window.scroll({ top: 0, left: 0, behavior: "smooth" });
+          setNewCategoryProps({ tags: [], name: "" });
+          props.setSelectedCategory(undefined)
+          props.setActive(false);
         });
     });
   };
@@ -68,7 +74,7 @@ export const FormEdit = (props) => {
                 placeholder="Enter tag's name"
                 value={tag.name}
                 onChange={(event) => {
-                  setTag({ ...tag, name: event.target.value });
+                  setTagProps({ ...tag, name: event.target.value });
                 }}
               />
               <div className="input-group-append">

@@ -1,4 +1,4 @@
-import { all, call, delay, put, take, takeEvery } from "redux-saga/effects";
+import { all, call, put, take, takeEvery } from "redux-saga/effects";
 import {
   CategoryActions,
   PostActions,
@@ -91,7 +91,6 @@ function* watchFetchDataHomePage() {
 function* fetchDataSearchPage(action) {
   const { postsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(PostActions.getAllPosts(postsFilters)),
     //sth gone here
@@ -103,7 +102,6 @@ function* fetchDataSearchPage(action) {
 function* fetchDataAdminPostsPage(action) {
   const { postsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(PostActions.getAllPosts(postsFilters)),
     //sth gone here
@@ -115,7 +113,6 @@ function* fetchDataAdminPostsPage(action) {
 function* fetchDataHomePage(action) {
   const { postsFilters, tagsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(PostActions.getAllPosts(postsFilters)),
     put(TagActions.getAllTags(tagsFilters)),
@@ -138,7 +135,6 @@ function* fetchDataPostDetailsPage(action) {
     postSharersFilters,
   } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(PostActions.updatePostCountViews(id)),
     put(PostActions.getPostDetails(id)),
@@ -164,7 +160,6 @@ function* fetchDataPostDetailsPage(action) {
 function* fetchDataProfilePage(action) {
   const { id, postedPostsFilters, sharedPostsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(UserActions.getUserSharedPosts(id, sharedPostsFilters)),
     put(UserActions.getUserPostedPosts(id, postedPostsFilters)),
@@ -180,7 +175,6 @@ function* fetchDataProfilePage(action) {
 function* fetchDataPostPage(action) {
   const { categoriesFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     // put(TagActions.getAllTags()),
     put(CategoryActions.getAllCategories(categoriesFilters)),
@@ -193,19 +187,21 @@ function* fetchDataPostPage(action) {
 function* fetchDataTagPage(action) {
   const { id, postsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(TagActions.getTagPosts(id, postsFilters)),
+    put(TagActions.getTag(id)),
     //sth gone here
   ]);
-  yield all([take(TagTypes.GET_TAG_POSTS_SUCCESS)]);
+  yield all([
+    take(TagTypes.GET_TAG_POSTS_SUCCESS),
+    take(TagTypes.GET_TAG_SUCCESS),
+  ]);
   yield call(hideLoading);
 }
 
 function* fetchDataCategoryPage(action) {
   const { categoriesFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(CategoryActions.getAllCategories(categoriesFilters)),
     //sth gone here
@@ -217,7 +213,6 @@ function* fetchDataCategoryPage(action) {
 function* fetchDataUserInfoPage(action) {
   const { id, postedPostsFilters, sharedPostsFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(UserActions.getUserInfo(id)),
     put(UserActions.getUserSharedPosts(id, sharedPostsFilters)),
@@ -235,7 +230,6 @@ function* fetchDataUserInfoPage(action) {
 function* fetchDataAdminCategoriesPage(action) {
   const { categoriesFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(CategoryActions.getAllCategories(categoriesFilters)),
     //sth gone here
@@ -247,7 +241,6 @@ function* fetchDataAdminCategoriesPage(action) {
 function* fetchDataAdminUsersPage(action) {
   const { usersFilters } = action.pageFilters;
   yield call(showLoading);
-  yield delay(500);
   yield all([
     put(UserActions.getAllUsers(usersFilters)),
     //sth gone here

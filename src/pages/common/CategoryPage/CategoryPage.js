@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { UIActions } from "../../../actions";
+import { Heading } from "../../../common";
 import { Accordion } from "./Accordion/Accordion";
 
 export const CategoryPage = () => {
@@ -14,6 +15,7 @@ export const CategoryPage = () => {
   }, []);
   return (
     <React.Fragment>
+      <Heading pageText="All categories" />
       <hr />
       <Accordion />
     </React.Fragment>

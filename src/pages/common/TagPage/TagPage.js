@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
 import { TagActions, UIActions } from "../../../actions";
 import { ItemRow } from "./ItemRow";
-import { Pagination } from "./../../../common";
+import { Pagination, Heading } from "./../../../common";
 
 export const TagPage = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ export const TagPage = () => {
   };
   const columns = ["Title", "Posted date", "View", "Author"];
   const posts = useSelector((state) => state.page.posts);
+  const tag = useSelector((state) => state.page.tag);
   const pagination = posts ? posts.pagination : undefined;
   const showPosts = (posts) => {
     if (posts.length > 0) {
@@ -33,6 +34,7 @@ export const TagPage = () => {
   }, []);
   return (
     <React.Fragment>
+      <Heading pageText={tag ? tag.name : null} />
       <table className="table table-hover table-bordered text-center">
         <thead className="bg-light table-header">
           <tr>

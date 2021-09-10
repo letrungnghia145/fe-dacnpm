@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { UIActions } from "../../../actions";
-import { TagBoard } from "../../../common";
+import { Heading, TagBoard } from "../../../common";
 import { PostsList } from "./PostsList";
 
 
@@ -18,10 +18,11 @@ export const HomePage = (props) => {
     dispatch(UIActions.fetchDataHomePage(pageFilters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return (
+  return (<>
+    <Heading pageText={"Welcome to Dolphin's home"} />
     <div className="row">
       <PostsList filters={pageFilters.postsFilters} />
       <TagBoard/>
     </div>
-  );
+  </>);
 };

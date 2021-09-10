@@ -17,4 +17,6 @@ export const REGISTER_URL = "/register";
 export const USER_PROFILE_URL = "/user/profile";
 export const USER_INFO_URL = "/user/info";
 export const ADMIN_USERS_INFO_URL = "/admin/users/info";
+export const ADMIN_USERS_URL = "/admin/users";
+export const ADMIN_POSTS_URL = "/admin/posts";
 export const ADMIN_PROFILE_URL = "/admin/profile";

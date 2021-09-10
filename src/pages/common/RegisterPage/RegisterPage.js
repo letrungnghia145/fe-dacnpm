@@ -36,6 +36,9 @@ export const RegisterPage = (props) => {
   return (
     <div className="lgu-container">
       <div className="card card-login py-4" style={{ minWidth: "600px" }}>
+        <Link to={URL.HOME_URL} className="text-white no-layout-page-link">
+          <i className="fa fa-share" aria-hidden="true"></i>Back to home
+        </Link>
         <form
           className="form-login"
           onSubmit={(event) => {

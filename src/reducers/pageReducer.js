@@ -62,6 +62,9 @@ const page = (state = initialState, action) => {
       return { ...state, tags: action.payload.tags };
     case TagTypes.GET_TAG_POSTS_SUCCESS:
       return { ...state, posts: action.payload.posts };
+      return { ...state, tags: action.payload.tags };
+    case TagTypes.GET_TAG_SUCCESS:
+      return { ...state, tag: action.payload.tag };
     case UserTypes.GET_USER_POSTED_POSTS_SUCCESS:
       return { ...state, postedPosts: action.payload.postedPosts };
     case UserTypes.GET_USER_SHARED_POSTS_SUCCESS:

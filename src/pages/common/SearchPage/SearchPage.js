@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { UIActions } from "../../../actions";
+import { Heading } from "../../../common";
 import { ResultList } from "./ResultList";
 
 export const SearchPage = (props) => {
@@ -16,5 +17,10 @@ export const SearchPage = (props) => {
     dispatch(UIActions.fetchDataSearchPage(pageFilters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
-  return <ResultList />;
+  return (
+    <>
+      <Heading pageText="Results match keyword" />
+      <ResultList />
+    </>
+  );
 };

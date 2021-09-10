@@ -3,17 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { URL, TOKEN_KEY } from "../../constants";
 import { DropDownItem } from "./DropDownItem";
+import { Utils } from "./../../helper";
 
 export const SideBar = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const handleLogout = (event) => {
+    event.preventDefault();
+    Utils.alertNotice("Are you sure to log out?").then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem(TOKEN_KEY);
+        dispatch(go(0));
+      }
+    });
+  };
   return (
     <nav id="sidebar" className="sidebar-wrapper">
       <div className="sidebar-content">
         <div className="sidebar-brand">
           <Link to="/admin/dashboard">Admin Dashboard</Link>
           <div id="close-sidebar">
-            <i className="fas fa-times" />
+            <i className="fa fa-share" aria-hidden="true">
+              <span
+                className="ml-1"
+                onClick={() => dispatch(push(URL.HOME_URL))}
+              >
+                Dolphin
+              </span>
+            </i>
           </div>
         </div>
         <div className="sidebar-header">
@@ -85,9 +102,7 @@ export const SideBar = () => {
         <Link
           to={URL.LOGOUT_URL}
           onClick={(event) => {
-            event.preventDefault();
-            localStorage.removeItem(TOKEN_KEY);
-            dispatch(go(0));
+            handleLogout(event);
           }}
         >
           <i className="fa fa-power-off" />
@@ -104,13 +119,8 @@ const menus = [
     icon: "th-list",
     submenus: [
       {
-        name: "Create category",
-        to: "/admin/category/create",
-        submenus: [],
-      },
-      {
-        name: "Edit category",
-        to: "/admin/category/edit",
+        name: "All categories",
+        to: URL.ADMIN_CATEGORY_URL,
         submenus: [],
       },
     ],
@@ -122,7 +132,7 @@ const menus = [
     submenus: [
       {
         name: "All users",
-        to: "/admin/users",
+        to: URL.ADMIN_USERS_URL,
         submenus: [],
       },
     ],
@@ -134,12 +144,12 @@ const menus = [
     submenus: [
       {
         name: "All posts",
-        to: "/admin/posts",
+        to: URL.ADMIN_POSTS_URL,
         submenus: [],
       },
       {
         name: "Need censorship posts",
-        to: "/admin/posts",
+        to: "/admin/posts/censorship",
         submenus: [],
       },
     ],

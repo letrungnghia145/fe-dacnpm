@@ -6,6 +6,7 @@ import { UIActions } from './../../../actions';
 import { Utils } from "./../../../helper";
 import { SelectCategoryInput } from "./SelectCategoryInput";
 import { SelectTagsBoard } from "./SelectTagsBoard";
+import { Heading } from './../../../common'
 
 export const PostPage = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -46,7 +47,8 @@ export const PostPage = (props) => {
     dispatch(UIActions.fetchDataPostPage(pageFilters))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  return (
+  return (<>
+    <Heading pageText=""/>
     <div className="wrapper">
       <div className="row no-gutters">
         <div className="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
@@ -137,5 +139,5 @@ export const PostPage = (props) => {
         </div>
       </div>
     </div>
-  );
+  </>);
 };

@@ -1,51 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userService } from "../../../apis";
+import { postService, userService } from "../../../apis";
 
 export const ActionControl = (props) => {
-  const options = {
-    SHARE: "SHARE",
-    UNSHARE: "UNSHARE",
-  };
-  const { post, auth } = props;
-  const [actionFlag, setActionFlag] = useState({
-    isVoted: false,
-    isShared: false,
-  });
+  const [canShare, setCanShare] = useState(false);
+  const [canVote, setCanVote] = useState(false);
+  const auth = useSelector((state) => state.auth);
   const sharers = useSelector((state) => state.page.sharers);
   const voters = useSelector((state) => state.page.voters);
-
-  const check =
-    sharers && sharers.data.filter((u) => u.id === auth.id).length > 0;
-
-  const handleSharePost = (option) => {
-    if (option === options.UNSHARE) {
-      userService.removeSharedPost(auth.id, post).then((response) => {
-        // if (response.status === 200) setShared(false);
-      });
-    } else {
-      userService.addSharedPost(auth.id, post).then((response) => {
-        // if (response.status === 200) setShared(true);
-      });
+  const onHandleShare = (option) => {
+    if (option === true) {
+      userService.addSharedPost(auth.id, props.post).then((response) => {
+        setCanShare(false);
+      })
+    }else {
+      userService.removeSharedPost(auth.id, props.post).then((response) => {
+        setCanShare(true);
+      })
     }
-  };
+  }
 
+  const onHandleVote = (option) => {
+    if (option === true) {
+      postService.addVoter(props.post.id, auth).then((response) => {
+        setCanVote(false);
+      })
+    }else {
+      postService.removeVoter(props.post.id, auth).then((response) => {
+        setCanVote(true);
+      })
+    }
+  }
+  useEffect(() => {
+    if (sharers && voters) {
+      if (auth) {
+        const checkShare = sharers.data.filter(sharer=>sharer.id === auth.id).length > 0;
+        setCanShare(!checkShare);
+        const checkVote = voters.data.filter(voter=>voter.id === auth.id).length > 0;
+        setCanVote(!checkVote);
+      }else{
+        setCanShare(true);
+        setCanVote(true);
+      }
+    }
+  }, [auth, sharers]);
   return (
     <div style={{ display: "flex", justifyContent: "end" }}>
-      <span className={`btn btn-outline-primary btn-round btn-sm mr-2`}>
+      <span className={`btn btn-primary btn-round btn-sm mr-2`}
+        onClick={()=>onHandleVote(canVote)}>
         <i className="fa fa-heart-o mr-1" aria-hidden="true"></i>
-        Vote
+        {canVote ? "Vote" : "Voted"}
       </span>
-      <span
-        className={`btn btn${
-          check ? "-" : "-outline-"
-        }primary btn-round btn-sm`}
-        onClick={() => {
-          handleSharePost(check ? options.UNSHARE : options.SHARE);
-        }}
-      >
-        <i className="fa fa-bookmark-o mr-1" aria-hidden="true"></i>
-        Share to profile
+      <span className={`btn btn-primary btn-round btn-sm`}
+        onClick={()=>onHandleShare(canShare)}>
+        <i className="fa fa-bookmark-o mr-1" aria-hidden="true"
+        ></i>
+        {canShare ? "Shared to profile" : "Shared"}
       </span>
     </div>
   );

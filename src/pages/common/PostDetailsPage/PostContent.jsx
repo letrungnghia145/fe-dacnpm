@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { URL } from "../../../constants";
+import postImg from './../../../assets/images/900x300.png';
 
 export const PostContent = (props) => {
   const { post } = props;
@@ -8,7 +9,7 @@ export const PostContent = (props) => {
     const { firstName, lastName, id } = post.author;
     return (
       <>
-        <img className="img-fluid rounded" src="http://placehold.it/900x300" alt="" />
+        <img className="img-fluid rounded" src={postImg} alt="" />
         <hr />
         <p>
           Posted on {post.createdDate}
@@ -17,12 +18,6 @@ export const PostContent = (props) => {
           </span>
         </p>
         <hr />
-        <p className="lead">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus,
-          vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit
-          excepturi nam quia corporis eligendi eos magni recusandae laborum
-          minus inventore?
-        </p>
         <p>{post.content}</p>
       </>
     );

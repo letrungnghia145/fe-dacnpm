@@ -6,7 +6,7 @@ function checkIsEmail(text) {
   return re.test(text);
 }
 
-function alertNotice(message, confirmButtonText) {
+function alertNotice(message, confirmButtonText, btnColor) {
   return Swal.fire({
     title: message,
     confirmButtonText: confirmButtonText ? confirmButtonText : "OK",
@@ -14,12 +14,12 @@ function alertNotice(message, confirmButtonText) {
     showCloseButton: true,
     buttonsStyling: false,
     customClass: {
-      confirmButton: "btn btn-primary",
+      confirmButton: `btn btn-${!btnColor ? "primary" : btnColor}`,
     },
   });
 }
 
-function alertSuccess(message, confirmButtonText) {
+function alertSuccess(message, confirmButtonText, btnColor) {
   return Swal.fire({
     text: message,
     title: "Success",
@@ -27,7 +27,7 @@ function alertSuccess(message, confirmButtonText) {
     buttonsStyling: false,
     confirmButtonText: confirmButtonText ? confirmButtonText : "OK",
     customClass: {
-      confirmButton: "btn btn-primary",
+      confirmButton: `btn btn-${!btnColor ? "primary" : btnColor}`,
     },
     showCloseButton: true,
   });
@@ -43,9 +43,9 @@ function scrollTop() {
 
 export const Utils = {
   checkIsEmail: (email) => checkIsEmail(email),
-  alertNotice: (message, confirmButtonText) =>
-    alertNotice(message, confirmButtonText),
-  alertSuccess: (message, confirmButtonText) =>
-    alertSuccess(message, confirmButtonText),
+  alertNotice: (message, confirmButtonText, btnColor) =>
+    alertNotice(message, confirmButtonText, btnColor),
+  alertSuccess: (message, confirmButtonText, btnColor) =>
+    alertSuccess(message, confirmButtonText, btnColor),
   scrollTop: () => scrollTop(),
 };

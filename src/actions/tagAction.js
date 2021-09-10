@@ -18,3 +18,9 @@ export const getTagPosts = (id, filters) => {
 export const getTagPostsSuccess = (posts) => {
   return { type: TagTypes.GET_TAG_POSTS_SUCCESS, payload: { posts } };
 };
+export const getTag = (id) => {
+  return { type: TagTypes.GET_TAG, payload: { id } };
+};
+export const getTagSuccess = (tag) => {
+  return { type: TagTypes.GET_TAG_SUCCESS, payload: { tag } };
+};

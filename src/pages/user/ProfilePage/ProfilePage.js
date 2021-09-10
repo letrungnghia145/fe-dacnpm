@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UIActions } from "../../../actions";
+import { Heading } from "../../../common";
 import { InfoBoard } from "./InfoBoard";
 import { PostedPostsList } from "./PostedPostsList";
 import { SharedPostsList } from "./SharedPostList";
 import { TabBoard } from "./TabBoard";
+import profileImg from './../../../assets/images/750x450.png';
 
 export const ProfilePage = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -21,11 +23,12 @@ export const ProfilePage = (props) => {
   }, []); 
   return (
     <>
+      <Heading pageText="Profile" />
       <div className="row">
         <div className="col-lg-6">
           <img
             className="img-fluid rounded mb-4"
-            src="http://placehold.it/750x450"
+            src={profileImg}
             alt=""
           />
           <TabBoard />

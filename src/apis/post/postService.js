@@ -50,6 +50,10 @@ const deletePosts = (ids) => {
   return client.delete(undefined, body);
 };
 
+const removeVoter = (id, voter) => {
+  return client.delete(`/${id}/voters`, voter);
+}
+
 export const postService = {
   getPosts: (filters) => getPosts(filters),
   updateCountViews: (id) => updateCountViews(id),
@@ -60,6 +64,7 @@ export const postService = {
   getComments: (id, filters) => getComments(id, filters),
   addComment: (id, comment) => addComment(id, comment),
   addVoter: (id, voter) => addVoter(id, voter),
+  removeVoter: (id, voter) => removeVoter(id, voter),
   getVoters: (id, filters) => getVoters(id, filters),
   getPostSharers: (id, filters) => getPostSharers(id, filters),
   deletePosts: (ids) => deletePosts(ids),

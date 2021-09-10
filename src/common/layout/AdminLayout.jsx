@@ -32,7 +32,7 @@ export const AdminLayout = (props) => {
                   rel="noopener noreferrer"
                   href="https://github.com/letrungnghia145/fe-dacnpm"
                 >
-                  dolphin
+                  Dolphins
                 </a>
               </small>
             </div>

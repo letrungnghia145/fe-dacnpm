@@ -4,7 +4,13 @@ import { TagTypes } from "../constants";
 import { tagService } from "./../apis";
 
 export function* tagSaga() {
-  yield all([watchGetAllTags(), watchCreateNewTag(), watchGetTagPosts()]);
+  yield all([
+    watchGetAllTags(),
+    watchCreateNewTag(),
+    ,
+    watchGetTag(),
+    watchGetTagPosts(),
+  ]);
 }
 
 function* watchGetAllTags() {
@@ -13,6 +19,16 @@ function* watchGetAllTags() {
     try {
       const response = yield tagService.getAllTags(action.payload.filters);
       yield put(TagActions.getAllTagsSuccess(response.data));
+    } catch (error) {}
+  }
+}
+
+function* watchGetTag() {
+  while (true) {
+    const action = yield take(TagTypes.GET_TAG);
+    try {
+      const response = yield tagService.getTag(action.payload.id);
+      yield put(TagActions.getTagSuccess(response.data));
     } catch (error) {}
   }
 }

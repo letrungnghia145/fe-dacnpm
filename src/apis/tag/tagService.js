@@ -16,9 +16,13 @@ const getPosts = (id, filters) => {
   return client.get(`/${id}/posts`, filters);
 };
 
+const getTag = (id) => {
+  return client.get(`/${id}`);
+};
+
 export const tagService = {
   getAllTags: (filters) => getAllTags(filters),
-  //   getTag: (id) => getTag(id),
+  getTag: (id) => getTag(id),
   createTag: (tag) => createTag(tag),
   getPosts: (id, filters) => getPosts(id, filters),
 };

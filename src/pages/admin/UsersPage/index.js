@@ -3,7 +3,7 @@ import { UsersPage as Wrappered } from "./UsersPage";
 
 export const UsersPage = () => {
   return (
-    <AdminLayout>
+    <AdminLayout header="Manage Users">
       <Wrappered />
     </AdminLayout>
   );
