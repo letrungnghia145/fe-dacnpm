@@ -1,10 +1,7 @@
-import { go } from "connected-react-router";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { categoryService } from './../../../apis';
 
 export const FormCreate = () => {
-  const dispatch = useDispatch();
   const options = {
       ADD_TAG: "ADD_TAG",
       REMOVE_TAG: "REMOVE_TAG",
@@ -16,6 +13,7 @@ export const FormCreate = () => {
   const [tag, setTagProps] = useState({
       name: "",
   })
+  const [status, showStatus] = useState(false);
   const handleTagsChange = (option, tag) => {
       const temp = [...category.tags]
       if (option === options.ADD_TAG) {
@@ -29,9 +27,10 @@ export const FormCreate = () => {
       event.preventDefault();
       categoryService.createCategory(category).then(response=>{
           if(response.status === 201) {
-            dispatch(go(0))
+            showStatus(true);
         }
     })
+    setTimeout(() => {showStatus(false)}, 3000);
   }
   return (
     <form style={{ margin: "20px 130px" }} onSubmit={(event) => onCreateCategory(event)}>
@@ -79,6 +78,7 @@ export const FormCreate = () => {
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
+          {status ? <span className="ml-2 text-success">Created &#10004;</span>:null}
         </div>
         <div className="col-md-6" style={{ padding: "37px", borderLeft: "1px solid" }}>
             {category.tags.length > 0 ? category.tags.map((tag, index) => {

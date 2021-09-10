@@ -6,7 +6,9 @@ import { postService } from "./../apis";
 export function* postSaga() {
   yield all([
     watchGetPostDetails(),
+    watchUpdatePostCountViews(),
     watchGetPostVoters(),
+    watchGetPostSharers(),
     watchGetAllPosts(),
     watchGetPostComments(),
     watchCreateNewPost(),
@@ -25,6 +27,19 @@ function* watchGetPostDetails() {
       const { data, status } = response;
       if (status === 200) {
         yield put(PostActions.getPostDetailsSuccess(data));
+      }
+    } catch (error) {}
+  }
+}
+
+function* watchUpdatePostCountViews() {
+  while (true) {
+    const action = yield take(PostTypes.UPDATE_POST_COUNT_VIEWS);
+    try {
+      const response = yield postService.updateCountViews(action.payload.id);
+      const { status } = response;
+      if (status === 200) {
+        yield put(PostActions.updatePostCountViewsSuccess());
       }
     } catch (error) {}
   }
@@ -70,12 +85,25 @@ function* watchGetPostVoters() {
   while (true) {
     const action = yield take(PostTypes.GET_POST_VOTERS);
     const { id, filters } = action.payload;
-    console.log(filters);
     try {
       const response = yield postService.getVoters(id, filters);
       const { data, status } = response;
       if (status === 200) {
         yield put(PostActions.getPostVotersSuccess(data));
+      }
+    } catch (error) {}
+  }
+}
+
+function* watchGetPostSharers() {
+  while (true) {
+    const action = yield take(PostTypes.GET_POST_VOTERS);
+    const { id, filters } = action.payload;
+    try {
+      const response = yield postService.getPostSharers(id, filters);
+      const { data, status } = response;
+      if (status === 200) {
+        yield put(PostActions.getPostSharersSuccess(data));
       }
     } catch (error) {}
   }

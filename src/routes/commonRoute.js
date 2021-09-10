@@ -36,12 +36,6 @@ export const commonRoutes = [
     component: (props) => <PostDetailsPage {...props} />,
   },
   {
-    path: `/userInfo/:id`,
-    exact: true,
-    roles: [],
-    component: (props) => <UserInfoPage {...props} />,
-  },
-  {
     path: `${URL.POST_SEARCH}`,
     exact: true,
     roles: [],
@@ -58,5 +52,11 @@ export const commonRoutes = [
     exact: true,
     roles: [],
     component: (props) => <TagPage {...props} />,
+  },
+  {
+    path: `${URL.USER_INFO_URL}/:id`,
+    exact: true,
+    roles: [],
+    component: (props) => <UserInfoPage {...props} />,
   },
 ];

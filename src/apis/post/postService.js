@@ -10,6 +10,10 @@ const getPost = (id) => {
   return client.get(`/${id}`);
 };
 
+const updateCountViews = (id) => {
+  return client.put(`/${id}/count`)
+}
+
 const createPost = (post) => {
   return client.post(undefined, post);
 };
@@ -36,6 +40,11 @@ const getVoters = (id, filters) => {
   return client.get(`/${id}/voters`, filters);
 };
 
+const getPostSharers = (id, filters) => {
+  return client.get(`/${id}/sharers`, filters);
+};
+
+
 const deletePosts = (ids) => {
   const body = { ids }
   return client.delete(undefined, body);
@@ -43,6 +52,7 @@ const deletePosts = (ids) => {
 
 export const postService = {
   getPosts: (filters) => getPosts(filters),
+  updateCountViews: (id) => updateCountViews(id),
   getPost: (id) => getPost(id),
   createPost: (post) => createPost(post),
   // updatePost: (post) => updatePost(post),
@@ -51,5 +61,6 @@ export const postService = {
   addComment: (id, comment) => addComment(id, comment),
   addVoter: (id, voter) => addVoter(id, voter),
   getVoters: (id, filters) => getVoters(id, filters),
+  getPostSharers: (id, filters) => getPostSharers(id, filters),
   deletePosts: (ids) => deletePosts(ids),
 };

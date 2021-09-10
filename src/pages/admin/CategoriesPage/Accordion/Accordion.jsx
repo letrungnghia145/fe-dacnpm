@@ -26,7 +26,7 @@ export const Accordion = (props) => {
       <div id="accordion" className="mb-4" >
           {data.map((category) => {
               const { id } = category;
-              return <AccordionItem 
+              return <AccordionItem reset={props.reset} resetSelected={props.resetSelected}
               current = { current } setCurrent = { setCurrent }
               category = { category } key = { id }/>
           })}

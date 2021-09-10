@@ -4,14 +4,14 @@ import {
   PostActions,
   TagActions,
   UIActions,
-  UserActions
+  UserActions,
 } from "../actions";
 import {
   CategoryTypes,
   PostTypes,
   TagTypes,
   UITypes,
-  UserTypes
+  UserTypes,
 } from "../constants";
 
 export function* uiSaga() {
@@ -135,23 +135,28 @@ function* fetchDataPostDetailsPage(action) {
     tagsFilters,
     postCommentsFilters,
     postVotersFilters,
+    postSharersFilters,
   } = action.pageFilters;
   yield call(showLoading);
   yield delay(500);
   yield all([
+    put(PostActions.updatePostCountViews(id)),
     put(PostActions.getPostDetails(id)),
     put(PostActions.getAllPosts(postsFilters)),
     put(PostActions.getPostComments(id, postCommentsFilters)),
     put(TagActions.getAllTags(tagsFilters)),
     put(PostActions.getPostVoters(id, postVotersFilters)),
+    put(PostActions.getPostSharers(id, postSharersFilters)),
     //sth gone here
   ]);
   yield all([
+    take(PostTypes.UPDATE_POST_COUNT_VIEWS_SUCCESS),
     take(PostTypes.GET_POST_DETAILS_SUCCESS),
     take(PostTypes.GET_ALL_POSTS_SUCCESS),
     take(PostTypes.GET_POST_COMMENTS_SUCCESS),
     take(TagTypes.GET_ALL_TAGS_SUCCESS),
     take(PostTypes.GET_POST_VOTERS_SUCCESS),
+    take(PostTypes.GET_POST_SHARERS_SUCCESS),
   ]);
   yield call(hideLoading);
 }

@@ -1,4 +1,4 @@
-import { go } from "connected-react-router";
+import { go, push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { URL, TOKEN_KEY } from "../../constants";
@@ -18,7 +18,13 @@ export const SideBar = () => {
         </div>
         <div className="sidebar-header">
           <div className="user-pic">
-            {/* <img className="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture" /> */}
+            <Link to={`${URL.ADMIN_PROFILE_URL}/${auth.id}`}>
+              <img
+                className="img-responsive img-rounded"
+                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                alt="User picture"
+              />
+            </Link>
           </div>
           <div className="user-info">
             <span className="user-name">
@@ -103,13 +109,8 @@ const menus = [
         submenus: [],
       },
       {
-        name: "Add category's tags",
-        to: "/admin/category/add-tag",
-        submenus: [],
-      },
-      {
-        name: "Update category",
-        to: "/admin/category/update",
+        name: "Edit category",
+        to: "/admin/category/edit",
         submenus: [],
       },
     ],
@@ -122,11 +123,6 @@ const menus = [
       {
         name: "All users",
         to: "/admin/users",
-        submenus: [],
-      },
-      {
-        name: "User's info",
-        to: "/admin/users/info",
         submenus: [],
       },
     ],

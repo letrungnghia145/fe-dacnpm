@@ -4,8 +4,13 @@ import { FormEdit } from "./FormEdit";
 
 export const SideControl = (props) => {
   const [active, setActive] = useState(false);
-  const { category } = props;
+  const { category, resetSelected, setSelectedCategory} = props;
   const check = category ? true : false;
+  const handleCancel = () => {
+    setSelectedCategory(undefined);
+    resetSelected(true);
+    // setActive(false);
+  }
   return (
     <>
       {/* <h3>Select to edit OR click add</h3> */}
@@ -14,7 +19,7 @@ export const SideControl = (props) => {
           <h5 className="mb-0 cus-header">
             <span>{category ? `Editing: ${category.name}` : 'Click button to create new Category'}</span>
             <button className={`btn-${check ? "danger" : "success"} btn`}
-                onClick = {()=>setActive(!active)}
+                onClick = {()=>category ? handleCancel() : setActive(!active)}
             >
                 {check ? "Cancel" : "Add category"}
             </button>

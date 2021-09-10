@@ -18,9 +18,14 @@ const getCategoryTags = (id, filters) => {
   return client.get(`/${id}/tags`, filters);
 };
 
+const updateCategory = (category) => {
+  return client.put(`/${category.id}`, category);
+}
+
 export const categoryService = {
   getAllCategories: (filters) => getAllCategories(filters),
   getCategoryPosts: (id, filters) => getCategoryPosts(id, filters),
   createCategory: (category) => createCategory(category),
   getCategoryTags: (id, filters) => getCategoryTags(id, filters),
+  updateCategory: (category) => updateCategory(category),
 };

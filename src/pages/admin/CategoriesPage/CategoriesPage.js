@@ -10,13 +10,14 @@ export const CategoriesPage = () => {
   const pageFilters = {
     categoriesFilters: { limit: 5 },
   };
+  const [reset, resetSelected] = useState(false);
   useEffect(() => {
     dispatch(UIActions.fetchDataAdminCategoriesPage(pageFilters));
   }, []);
   return (
     <>
-      <Accordion setSelectedCategory={setSelectedCategory} />
-      <SideControl category={selectedCategory} />
+      <Accordion reset={reset} setSelectedCategory={setSelectedCategory} resetSelected={resetSelected} />
+      <SideControl category={selectedCategory} resetSelected={resetSelected} setSelectedCategory={setSelectedCategory} />
     </>
   );
 };

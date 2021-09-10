@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { URL } from "../../../constants";
 
 export const ItemRow = (props) => {
-  const { id, title, createdDate, author, tags } = props.post;
+  const { id, title, createdDate, author, tags, countViews } = props.post;
   const { id: uid, firstName, lastName } = author;
   return (
     <tr>
@@ -14,7 +14,7 @@ export const ItemRow = (props) => {
       </td>
       <td>{createdDate}</td>
       <td>
-        <span className="badge badge-pill badge-success p-2 px-3">Count views</span>
+        <span className="badge badge-pill badge-success p-2 px-3">{`Views: ${countViews}`}</span>
       </td>
       <td className="custom-td">
         <Link to={`${URL.USER_INFO_URL}/${uid}`}>

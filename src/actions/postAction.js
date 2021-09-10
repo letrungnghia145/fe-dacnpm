@@ -29,6 +29,14 @@ export const getPostCommentsSuccess = (comments) => {
   return { type: PostTypes.GET_POST_COMMENTS_SUCCESS, payload: { comments } };
 };
 
+export const updatePostCountViews = (id) => {
+  return { type: PostTypes.UPDATE_POST_COUNT_VIEWS, payload: { id } };
+};
+
+export const updatePostCountViewsSuccess = () => {
+  return { type: PostTypes.UPDATE_POST_COUNT_VIEWS_SUCCESS, payload: {} };
+};
+
 export const createNewPost = (post) => {
   return { type: PostTypes.CREATE_NEW_POST, payload: { post } };
 };
@@ -48,3 +56,11 @@ export const addPostVoter = (id, voter) => {
 export const deleteAllPostsByIds = (ids) => {
   return { type: PostTypes.DELETE_ALL_POST_BY_IDS, payload: { ids } };
 };
+
+export const getPostSharers = (id, filters) => {
+  return { type: PostTypes.GET_POST_SHARERS, payload: { id, filters }}
+}
+
+export const getPostSharersSuccess = (sharers) => {
+  return { type: PostTypes.GET_POST_SHARERS_SUCCESS, payload: { sharers }}
+}

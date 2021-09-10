@@ -33,7 +33,7 @@ export const TagPage = () => {
   }, []);
   return (
     <React.Fragment>
-      <table className="table table-hover table-bordered">
+      <table className="table table-hover table-bordered text-center">
         <thead className="bg-light table-header">
           <tr>
             {columns.map((column, index) => (

@@ -10,6 +10,7 @@ export const HomePage = (props) => {
   const pageFilters = {
     postsFilters: {
       limit: 3,
+      sort: "countViews:desc"
     },
     tagsFilters: {}
   }
@@ -19,7 +20,7 @@ export const HomePage = (props) => {
   }, []);
   return (
     <div className="row">
-      <PostsList />
+      <PostsList filters={pageFilters.postsFilters} />
       <TagBoard/>
     </div>
   );

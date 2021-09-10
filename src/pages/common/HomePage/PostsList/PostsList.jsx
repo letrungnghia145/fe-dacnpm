@@ -4,6 +4,7 @@ import { Pagination } from "../../../../common";
 import { PostsItem } from "./PostsItem";
 
 export const PostsList = (props) => {
+  const { filters } = props;
   const posts = useSelector((state) => state.page.posts);
   const dispatch = useDispatch();
   const showPosts = (posts) => {
@@ -15,7 +16,7 @@ export const PostsList = (props) => {
     const { data, pagination } = posts;
     const onChangePage = (page) => {
       window.scrollTo({top: 0, left: 0, behavior: "smooth"})
-      dispatch(PostActions.getAllPosts({ limit: pagination.limit, page}))
+      dispatch(PostActions.getAllPosts({...filters, page}))
     }
     return (
       <>

@@ -52,6 +52,8 @@ const page = (state = initialState, action) => {
       return { ...state, post: action.payload.post };
     case PostTypes.GET_POST_VOTERS_SUCCESS:
       return { ...state, voters: action.payload.voters };
+    case PostTypes.GET_POST_SHARERS_SUCCESS:
+      return { ...state, sharers: action.payload.sharers };
     case PostTypes.GET_ALL_POSTS_SUCCESS:
       return { ...state, posts: action.payload.posts };
     case PostTypes.GET_POST_COMMENTS_SUCCESS:

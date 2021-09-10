@@ -14,6 +14,10 @@ const addSharedPost = (id, post) => {
   return client.post(`/${id}/posts/shared`, post);
 };
 
+const removeSharedPost = (id, post) => {
+  return client.delete(`/${id}/posts/shared`, post);
+};
+
 const getSharedPosts = (id, filters) => {
   return client.get(`/${id}/posts/shared`, filters);
 };
@@ -34,6 +38,7 @@ export const userService = {
   getProfile: () => getProfile(),
   getUser: (id) => getUser(id),
   addSharedPost: (id, post) => addSharedPost(id, post),
+  removeSharedPost: (id, post) => removeSharedPost(id, post),
   getSharedPosts: (id, filters) => getSharedPosts(id, filters),
   getUsers: (filters) => getUsers(filters),
   updateUser: (id, user) => updateUser(id, user),

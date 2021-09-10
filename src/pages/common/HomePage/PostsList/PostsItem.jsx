@@ -35,7 +35,7 @@ export const PostsItem = (props) => {
       </div>
       <div className="card-footer text-muted">
         {post.createdDate} by
-        <Link to={`/userInfo/${uid}`}> {`${firstName} ${lastName}`}</Link>
+        <Link to={`${URL.USER_INFO_URL}/${uid}`}> {`${firstName} ${lastName}`}</Link>
       </div>
     </div>
   );

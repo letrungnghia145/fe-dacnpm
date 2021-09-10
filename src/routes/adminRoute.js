@@ -3,7 +3,7 @@ import {
   AdminUserInfoPage,
   CategoriesPage,
   PostsPage,
-  UsersPage,
+  UsersPage
 } from "../pages";
 
 const prefix = "/admin";
@@ -29,6 +29,12 @@ export const adminRoutes = [
   },
   {
     path: `${prefix}/users/info/:id`,
+    exact: true,
+    roles: ["ROLE_ADMIN"],
+    component: (props) => <AdminUserInfoPage {...props} />,
+  },
+  {
+    path: `${prefix}/profile/:id`,
     exact: true,
     roles: ["ROLE_ADMIN"],
     component: (props) => <AdminUserInfoPage {...props} />,
