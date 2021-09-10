@@ -6,10 +6,12 @@ function checkIsEmail(text) {
   return re.test(text);
 }
 
-function alertNotice(message) {
+function alertNotice(message, confirmButtonText) {
   return Swal.fire({
     title: message,
+    confirmButtonText: confirmButtonText ? confirmButtonText : "OK",
     icon: "warning",
+    showCloseButton: true,
     buttonsStyling: false,
     customClass: {
       confirmButton: "btn btn-primary",
@@ -41,7 +43,8 @@ function scrollTop() {
 
 export const Utils = {
   checkIsEmail: (email) => checkIsEmail(email),
-  alertNotice: (message) => alertNotice(message),
+  alertNotice: (message, confirmButtonText) =>
+    alertNotice(message, confirmButtonText),
   alertSuccess: (message, confirmButtonText) =>
     alertSuccess(message, confirmButtonText),
   scrollTop: () => scrollTop(),

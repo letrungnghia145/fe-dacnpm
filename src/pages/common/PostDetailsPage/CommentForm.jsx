@@ -2,6 +2,7 @@ import { push } from "connected-react-router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
+import { Utils } from './../../../helper';
 
 export const CommentForm = (props) => {
   const location = useLocation();
@@ -13,7 +14,9 @@ export const CommentForm = (props) => {
     if (auth) {
       props.onComment(content);
     } else {
-      dispatch(push("/login", { from: location.pathname }));
+      Utils.alertNotice("You need login to write comment", "Go to login").then(result=>{
+        if(result.isConfirmed) dispatch(push("/login", { from: location.pathname }));
+      })
     }
     setContent("");
   };

@@ -6,7 +6,7 @@ export const UserLayout = (props) => {
     <>
       <Header />
       <div className="container">
-        <Heading />
+        <Heading pageText = {props.pageText} />
         {props.children}
       </div>
       <Footer />

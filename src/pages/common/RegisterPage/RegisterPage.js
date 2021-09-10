@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthActions } from "../../../actions";
+import { URL } from "../../../constants";
 
 export const RegisterPage = (props) => {
   const [user, setUserProps] = useState({
@@ -14,7 +16,7 @@ export const RegisterPage = (props) => {
   });
   const register = useSelector((state) => state.register);
   const dispatch = useDispatch();
-  
+
   const doRegister = (event) => {
     event.preventDefault();
     if (!register.error) {
@@ -53,6 +55,13 @@ export const RegisterPage = (props) => {
             >
               Register
             </button>
+            <Link
+              type=""
+              className="btn btn-outline-white font-weight-bold mr-3"
+              to={URL.LOGIN_URL}
+            >
+              Login
+            </Link>
           </div>
         </form>
       </div>

@@ -4,7 +4,6 @@ import { useRouteMatch } from "react-router";
 import { PostActions, UIActions } from "../../../actions";
 import { postService } from "../../../apis";
 import { TagBoard } from "../../../common";
-import { ActionControl } from "./ActionControl";
 import { CommentForm } from "./CommentForm";
 import { CommentList } from "./CommentList";
 import { PostContent } from "./PostContent";
@@ -22,7 +21,8 @@ export const PostDetailsPage = (props) => {
     postsFilters: { limit: 3 },
     tagsFilters: { limit: 10 },
     postCommentsFilters: { limit: 3 },
-    postVotersFilters: { id: auth ? `eq:${auth.id}` : null },
+    postVotersFilters: { },
+    postSharersFilters: { },
     id: match.params.id,
   };
   const onComment = (content) => {
@@ -43,18 +43,16 @@ export const PostDetailsPage = (props) => {
   };
 
   useEffect(() => {
-    if (auth && auth.id) {
-      dispatch(UIActions.fetchDataPostDetailsPage(pageFilters));
-    }
+    dispatch(UIActions.fetchDataPostDetailsPage(pageFilters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  }, []);
   return (
     <>
       <div className="row">
         <div className="col-lg-8" style={{ marginTop: "-14px" }}>
           <PostContent post={post} />
           <hr />
-          <ActionControl auth={auth} post={post} />
+          {/* <ActionControl auth={auth} post={post} /> */}
           <hr />
           <CommentList id={pageFilters.id} />
           <CommentForm message="Leave a comment" onComment={onComment} />

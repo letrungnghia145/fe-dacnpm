@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { AuthActions } from "../../../actions";
 import { URL } from "../../../constants";
 
@@ -57,6 +57,12 @@ export const LoginPage = (props) => {
               >
                 Login
               </button>
+              <Link
+                className="btn btn-outline-white font-weight-bold mr-3"
+                to={URL.REGISTER_URL}
+              >
+                Register
+              </Link>
             </div>
           </form>
         </div>
